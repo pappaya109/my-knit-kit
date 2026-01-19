@@ -2,20 +2,9 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
-import { BrowserRouter, Routes, Route } from 'react-router'
-import ProjectForm  from './pages/ProjectForm'
-import ProjectDetail from './pages/ProjectDetail/index.tsx'
-import Landing from './pages/Landing/index.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Landing/>}/>
-        <Route path='/createfo' element={<ProjectForm/>}/>
-        <Route path='/editfo'  element={<ProjectForm/>}/> 
-        <Route path='myfo/:foid' element={<ProjectDetail/>} />
-      </Routes>
-    </BrowserRouter>
+    <App />
   </StrictMode>,
 )
