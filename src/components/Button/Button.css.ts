@@ -24,6 +24,7 @@ export const root = style(buttonBase);
 export const label = style({
   position: 'relative',
   zIndex: 1,
+  fontSize: '1.5rem',
 });
 
 export const accept = style({
