@@ -15,7 +15,7 @@ const Landing = () => {
           <StarIcon className={styles.starRightSmall} />
           <StarIcon className={styles.starBottomRightLarge} />
         </div>
-        <Button text='프로젝트 시작하기' type='cancel' className={styles.button} />
+        <Button text='프로젝트 시작하기' type='cancel' className={styles.button} to='/folist' />
       </div>
     </div>
   );
