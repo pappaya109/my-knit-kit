@@ -17,6 +17,8 @@ export const background = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
+  position: 'relative',
+  bottom: 12,
   // justifyContent: 'space-between',
 });
 export const ribbon = style({
@@ -31,10 +33,8 @@ export const iconArea = style({
   flexGrow: 0,
   justifyContent: 'center',
   alignItems: 'start',
-  // background: 'red',
-  marginTop: 100,
-  // position: 'relative',
-  // bottom: 30
+  position: 'relative',
+  marginTop: 50,
 });
 
 export const button = style({
@@ -42,8 +42,50 @@ export const button = style({
   height: 50,
   borderRadius: 6,
   fontSize: '1.6rem',
+  cursor: 'pointer',
 });
 
 export const iconImage = style({
   maxHeight: 192,
 });
+
+export const starIcon = style({
+  position: 'absolute',
+  pointerEvents: 'none',
+});
+
+export const starTopLeftLarge = style([
+  starIcon,
+  {
+    top: -10,
+    left: 30,
+    width: 56,
+  },
+]);
+
+export const starTopLeftSmall = style([
+  starIcon,
+  {
+    top: -50,
+    left: 78,
+    width: 34,
+  },
+]);
+
+export const starRightSmall = style([
+  starIcon,
+  {
+    top: 132,
+    right: 44,
+    width: 34,
+  },
+]);
+
+export const starBottomRightLarge = style([
+  starIcon,
+  {
+    top: 198,
+    right: 68,
+    width: 56,
+  },
+]);
