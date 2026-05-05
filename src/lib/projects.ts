@@ -40,9 +40,20 @@ export async function getProject(id: string): Promise<Project> {
   return toProject(data);
 }
 
+const MAX_PROJECTS_PER_USER = 50;
+
 export async function createProject(input: ProjectInsert): Promise<Project> {
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) throw new Error('로그인 정보가 없습니다.');
+
+  const { count, error: countError } = await supabase
+    .from('projects')
+    .select('*', { count: 'exact', head: true });
+
+  if (countError) throw countError;
+  if ((count ?? 0) >= MAX_PROJECTS_PER_USER) {
+    throw new Error(`프로젝트는 최대 ${MAX_PROJECTS_PER_USER}개까지 만들 수 있습니다.`);
+  }
 
   const { data, error } = await supabase
     .from('projects')
