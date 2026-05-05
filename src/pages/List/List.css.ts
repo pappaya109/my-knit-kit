@@ -1,22 +1,28 @@
 import { style } from '@vanilla-extract/css';
-import { createRoughFramePseudo } from '../../styles/roughFrame';
+import ziggleOutline from '../../assets/ziggle_outline.svg';
 
 export const page = style({
-  minHeight: '100vh',
   backgroundColor: '#fff',
   color: '#4a3728',
-  maxWidth: 480,
-  margin: '0 auto',
+  width: '100%',
+  minHeight: '100dvh',
   paddingInline: 24,
   boxSizing: 'border-box',
+  '@media': {
+    'screen and (min-width: 1024px)': {
+      width: 390,
+      minHeight: 'calc(100dvh  - 80px)',
+      overflowY: 'auto',
+    },
+  },
 });
 
 export const header = style({
   display: 'flex',
   alignItems: 'center',
   gap: 10,
-  paddingTop: 28,
-  paddingBottom: 16,
+  paddingTop: 18,
+  paddingBottom: 6,
 });
 
 export const folderIcon = style({
@@ -27,6 +33,7 @@ export const folderIcon = style({
 
 export const title = style({
   margin: 0,
+  marginBottom: -10,
   fontSize: '2rem',
   fontWeight: 400,
   letterSpacing: '0.1em',
@@ -53,37 +60,31 @@ export const list = style({
 });
 
 export const item = style({
-  position: 'relative',
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   width: '100%',
   minHeight: 52,
-  padding: '10px 20px',
-  backgroundColor: 'transparent',
-  border: 'none',
-  borderRadius: 0,
-  cursor: 'pointer',
-  fontFamily: 'inherit',
+  padding: '10px 40px',
+  boxSizing: 'border-box',
   fontSize: '1.6rem',
   color: '#4a3728',
   textAlign: 'left',
-  boxSizing: 'border-box',
-  selectors: {
-    '&::after': createRoughFramePseudo({ fillColor: '#fff' }),
-  },
+  backgroundImage: `url(${ziggleOutline})`,
+  backgroundSize: '100% 100%',
+  backgroundRepeat: 'no-repeat',
 });
 
 export const itemContent = style({
-  position: 'relative',
-  zIndex: 1,
   display: 'flex',
   alignItems: 'center',
-  gap: 12,
+  gap: 5,
+  paddingTop: 3,
 });
 
 export const addSign = style({
-  fontSize: '1.8rem',
-  lineHeight: 1,
+  width: 20,
+  height: 20,
 });
 
 export const categoryIcon = style({

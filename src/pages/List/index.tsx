@@ -8,6 +8,7 @@ import shirtIcon from '../../assets/shirt_icon.svg';
 import mufflerIcon from '../../assets/muffler_icon.svg';
 import bagIcon from '../../assets/bag_icon.svg';
 import starIcon from '../../assets/star_icon.svg';
+import addIcon from '../../assets/add_icon.svg';
 
 const categoryIcons: Record<Project['category'], string> = {
   socks: socksIcon,
@@ -35,15 +36,15 @@ const List = () => {
       <header className={styles.header}>
         <svg
           className={styles.folderIcon}
-          viewBox="0 0 24 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
+          viewBox='0 0 24 20'
+          fill='none'
+          xmlns='http://www.w3.org/2000/svg'
+          aria-hidden='true'
         >
           <path
-            d="M1 5C1 3.9 1.9 3 3 3H9.5L11.5 6H21C22.1 6 23 6.9 23 8V17C23 18.1 22.1 19 21 19H3C1.9 19 1 18.1 1 17V5Z"
-            stroke="#6b4d4d"
-            strokeWidth="1.5"
+            d='M1 5C1 3.9 1.9 3 3 3H9.5L11.5 6H21C22.1 6 23 6.9 23 8V17C23 18.1 22.1 19 21 19H3C1.9 19 1 18.1 1 17V5Z'
+            stroke='#6b4d4d'
+            strokeWidth='1.5'
           />
         </svg>
         <h1 className={styles.title}>내 프로젝트</h1>
@@ -57,7 +58,7 @@ const List = () => {
         <main className={styles.list}>
           <button className={styles.item} onClick={() => navigate('/createfo')}>
             <span className={styles.itemContent}>
-              <span className={styles.addSign}>+</span>
+              <img src={addIcon} className={styles.addSign} />
               <span>프로젝트 생성하기</span>
             </span>
           </button>
@@ -72,8 +73,8 @@ const List = () => {
                 <img
                   src={categoryIcons[project.category]}
                   className={styles.categoryIcon}
-                  alt=""
-                  aria-hidden="true"
+                  alt=''
+                  aria-hidden='true'
                 />
                 <span>{project.name}</span>
               </span>
