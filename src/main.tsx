@@ -7,6 +7,9 @@ import ProjectForm from './pages/ProjectForm';
 import ProjectDetail from './pages/ProjectDetail/index.tsx';
 import Landing from './pages/Landing/index.tsx';
 import List from './pages/List/index.tsx';
+import { ensureAnonymousSession } from './lib/auth';
+
+ensureAnonymousSession();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
