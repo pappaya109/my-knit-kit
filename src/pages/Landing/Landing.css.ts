@@ -7,6 +7,7 @@ export const container = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  backgroundColor: '#fff',
 });
 export const background = style({
   backgroundImage: `url(${backgrondImg})`,
