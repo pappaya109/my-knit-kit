@@ -100,3 +100,10 @@ export const errorText = style({
   textAlign: 'center',
   paddingTop: 40,
 });
+
+export const statusText = style({
+  fontSize: '1.4rem',
+  color: '#8a7a6a',
+  textAlign: 'center',
+  paddingTop: 40,
+});

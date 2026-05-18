@@ -19,10 +19,18 @@ function toProject(row: ProjectRow): Project {
   };
 }
 
+async function getCurrentUserId(): Promise<string> {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) throw new Error('로그인 정보가 없습니다.');
+  return session.user.id;
+}
+
 export async function getProjects(): Promise<Project[]> {
+  const userId = await getCurrentUserId();
   const { data, error } = await supabase
     .from('projects')
     .select('*')
+    .eq('user_id', userId)
     .order('created_at', { ascending: false });
 
   if (error) throw error;
@@ -30,10 +38,12 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getProject(id: string): Promise<Project> {
+  const userId = await getCurrentUserId();
   const { data, error } = await supabase
     .from('projects')
     .select('*')
     .eq('id', id)
+    .eq('user_id', userId)
     .single();
 
   if (error) throw error;
@@ -43,12 +53,12 @@ export async function getProject(id: string): Promise<Project> {
 const MAX_PROJECTS_PER_USER = 50;
 
 export async function createProject(input: ProjectInsert): Promise<Project> {
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error('로그인 정보가 없습니다.');
+  const userId = await getCurrentUserId();
 
   const { count, error: countError } = await supabase
     .from('projects')
-    .select('*', { count: 'exact', head: true });
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', userId);
 
   if (countError) throw countError;
   if ((count ?? 0) >= MAX_PROJECTS_PER_USER) {
@@ -58,7 +68,7 @@ export async function createProject(input: ProjectInsert): Promise<Project> {
   const { data, error } = await supabase
     .from('projects')
     .insert({
-      user_id: user.id,
+      user_id: userId,
       name: input.name,
       category: input.category,
       start_date: input.startDate,
@@ -75,6 +85,7 @@ export async function createProject(input: ProjectInsert): Promise<Project> {
 }
 
 export async function updateProject(id: string, input: ProjectUpdate): Promise<Project> {
+  const userId = await getCurrentUserId();
   const { data, error } = await supabase
     .from('projects')
     .update({
@@ -87,6 +98,7 @@ export async function updateProject(id: string, input: ProjectUpdate): Promise<P
       image_url: input.imageUrl,
     })
     .eq('id', id)
+    .eq('user_id', userId)
     .select()
     .single();
 
@@ -95,19 +107,23 @@ export async function updateProject(id: string, input: ProjectUpdate): Promise<P
 }
 
 export async function updateRowCounter(id: string, count: number): Promise<void> {
+  const userId = await getCurrentUserId();
   const { error } = await supabase
     .from('projects')
     .update({ row_counter: count })
-    .eq('id', id);
+    .eq('id', id)
+    .eq('user_id', userId);
 
   if (error) throw error;
 }
 
 export async function deleteProject(id: string): Promise<void> {
+  const userId = await getCurrentUserId();
   const { error } = await supabase
     .from('projects')
     .delete()
-    .eq('id', id);
+    .eq('id', id)
+    .eq('user_id', userId);
 
   if (error) throw error;
 }
