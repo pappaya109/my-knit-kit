@@ -18,7 +18,7 @@ ensureAnonymousSession().then(() => {
           <Route path='/folist' element={<List />} />
           <Route path='/createfo' element={<ProjectForm />} />
           <Route path='/editfo' element={<ProjectForm />} />
-          <Route path='myfo/:foid' element={<ProjectDetail />} />
+          <Route path='/myfo/:foid' element={<ProjectDetail />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>,
