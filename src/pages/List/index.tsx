@@ -25,10 +25,22 @@ const List = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let cancelled = false;
     getProjects()
-      .then(setProjects)
-      .catch(() => setError('프로젝트를 불러오는 데 실패했습니다.'))
-      .finally(() => setLoading(false));
+      .then((data) => {
+        if (!cancelled) setProjects(data);
+      })
+      .catch((err) => {
+        if (cancelled) return;
+        console.error('[getProjects error]', err);
+        setError('프로젝트를 불러오는 데 실패했습니다.');
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return (
@@ -52,18 +64,19 @@ const List = () => {
 
       <div className={styles.divider} />
 
-      {error && <p className={styles.errorText}>{error}</p>}
+      <main className={styles.list}>
+        <button className={styles.item} onClick={() => navigate('/createfo')}>
+          <span className={styles.itemContent}>
+            <img src={addIcon} className={styles.addSign} />
+            <span>프로젝트 생성하기</span>
+          </span>
+        </button>
 
-      {!loading && !error && (
-        <main className={styles.list}>
-          <button className={styles.item} onClick={() => navigate('/createfo')}>
-            <span className={styles.itemContent}>
-              <img src={addIcon} className={styles.addSign} />
-              <span>프로젝트 생성하기</span>
-            </span>
-          </button>
+        {loading && <p className={styles.statusText}>불러오는 중...</p>}
+        {error && <p className={styles.errorText}>{error}</p>}
 
-          {projects.map((project) => (
+        {!loading && !error &&
+          projects.map((project) => (
             <button
               key={project.id}
               className={styles.item}
@@ -80,8 +93,7 @@ const List = () => {
               </span>
             </button>
           ))}
-        </main>
-      )}
+      </main>
     </div>
   );
 };
